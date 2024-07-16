@@ -5,22 +5,27 @@ See the challenge from this [link](./NodeJS%20API%20test.pdf).
 
 ## Project set up
 
-Install dependencies
+1. Install dependencies
 ````bash
 npm install
 ````
-Build project
+2. Create .env file from .env.template
+3. Build project
 ````bash
 npm run build
 ````
 
-### Execute local environment
+### Development Environment
 1. Run development mode
 ````bash
-npm run dev
+npm run dc:dev
+````
+2. Rebuild database with seed
+````bash
+curl -X GET http://localhost:3000/api/v2/seed
 ````
 
-### Execute test environment
+### Test Environment
 
 1. Run tests
 ````bash
@@ -30,3 +35,12 @@ or watch mode
 ````bash
 npm run test:watch
 ````
+
+### Tech stack
+* Typescript
+* ExpressJS
+* Sequelize
+* PostgreSQL
+* Docker compose
+* SQLite (testing)
+* Jest & supertest

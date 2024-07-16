@@ -7,7 +7,7 @@
     "dev": "tsnd --respawn --clear src/app.ts",
     "build": "rimraf ./dist && tsc -p tsconfig.build.json",
     "start": "npm run build && node dist/app.js",
-    "dc:dev": "docker-compose up -d",
+    "dc:dev": "docker-compose up",
     "test": "jest",
     "test:watch": "jest --watchAll --coverage",
     "test:coverage": "jest --coverage"
