@@ -6,9 +6,10 @@ describe('Environments Variables', () => {
         expect( envs ).toEqual({
             PORT: 3001,
             NODE_ENV: 'test',
+            PUBLIC_FOLDER: 'public'
         });
     });
-    test('', async() => {
+    test('Should return error if not found env', async() => {
         jest.resetModules();
         process.env.PORT = 'ABC';
         try {
