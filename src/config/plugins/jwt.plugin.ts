@@ -10,7 +10,7 @@ export interface TokenPayload {
 
 export class JwtPlugin {
     private static expiration: string = '1h';
-    private static secret: string = process.env.JWT_SECRET || 'yourSecretKey';
+    private static secret: string = process.env.JWT_SECRET!;
 
     public static createToken(options: TokenPayload): string {
         const payload = { ...options };
@@ -39,6 +39,7 @@ export class JwtPlugin {
             });
 
             if (!user) {
+                console.log(user);
                 throw new UnauthorizedError('Invalid token');
             }
 

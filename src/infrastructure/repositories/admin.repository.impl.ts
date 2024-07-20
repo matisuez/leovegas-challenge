@@ -2,7 +2,7 @@
 import { AdminDatasource } from "../../core/datasources/admin.datasource";
 import { AdminRepository } from "../../core/repositories/admin.repository";
 import { AdminUpdateUserDto } from "../../core/dtos";
-import { UserEntity, UserRole } from "@/core/entities";
+import { UserEntity, UserRole } from "../../core/entities";
 
 export class AdminRepositoryImpl implements AdminRepository {
 

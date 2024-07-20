@@ -72,7 +72,7 @@ describe('AdminRoutes', () => {
             const updateData = { name: 'Updated User' };
 
             const { body } = await request(app)
-                .put('/api/admin/users/test.user@example.com')
+                .patch('/api/admin/users/test.user@example.com')
                 .set('Authorization', 'Bearer valid_token')
                 .send(updateData)
                 .expect(200);
@@ -82,7 +82,7 @@ describe('AdminRoutes', () => {
 
         test('should return 400 for invalid email format', async () => {
             await request(app)
-                .put('/api/admin/users/invalidemail')
+                .patch('/api/admin/users/invalidemail')
                 .set('Authorization', 'Bearer valid_token')
                 .send({ name: 'Updated User' })
                 .expect(400);
@@ -90,7 +90,7 @@ describe('AdminRoutes', () => {
 
         test('should return 401 for missing token', async () => {
             await request(app)
-                .put('/api/admin/users/test.user@example.com')
+                .patch('/api/admin/users/test.user@example.com')
                 .send({ name: 'Updated User' })
                 .expect(401);
         });
@@ -101,7 +101,7 @@ describe('AdminRoutes', () => {
             const updateData = {};
         
             await request(app)
-                .put('/api/admin/users/test.user@example.com')
+                .patch('/api/admin/users/test.user@example.com')
                 .set('Authorization', 'Bearer valid_token')
                 .send(updateData)
                 .expect(400);
@@ -114,7 +114,7 @@ describe('AdminRoutes', () => {
             const updateData = { password: 'newpassword', repeatedPassword: 'differentpassword' };
         
             await request(app)
-                .put('/api/admin/users/test.user@example.com')
+                .patch('/api/admin/users/test.user@example.com')
                 .set('Authorization', 'Bearer valid_token')
                 .send(updateData)
                 .expect(400);

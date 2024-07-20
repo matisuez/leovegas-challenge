@@ -56,8 +56,8 @@ npm run test:watch
 ### Tech stack
 * Typescript
 * ExpressJS
-* Sequelize
+* Prisma ORM
 * PostgreSQL
 * Docker compose
-* SQLite (testing)
+* Neon (testing)
 * Jest & supertest

@@ -58,7 +58,7 @@ export class AdminRoutes {
         /** 
          * @swagger
          * /api/admin/users/{email}:
-         *   put:
+         *   patch:
          *     summary: Update user role or details
          *     description: Updates the role or details of a user based on the provided email.
          *     operationId: updateUser
@@ -100,7 +100,7 @@ export class AdminRoutes {
          *             schema:
          *               $ref: '#/components/schemas/AdminErrorResponse'
          */
-        router.put('/users/:email', [
+        router.patch('/users/:email', [
             securedAdmin,
             body().custom((body) => {
                 const fields = ['name', 'email', 'role', 'password', 'repeatedPassword'];
