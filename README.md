@@ -16,13 +16,30 @@ npm run build
 ````
 
 ### Development Environment
-1. Run development mode
+1. Run server
+````bash
+npm run dev
+````
+2. Run database
 ````bash
 npm run dc:dev
 ````
-2. Rebuild database with seed
+3. Populate database with seed
 ````bash
 curl -X GET http://localhost:3000/api/v2/seed
+````
+or
+````bash
+// From swagger api
+http://localhost:3000/api/docs/#/Seeds/createSeeds
+````
+4. Database migrations
+````bash
+npx prisma migrate dev
+````
+or
+````bash
+npx db push
 ````
 
 ### Test Environment

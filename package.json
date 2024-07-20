@@ -5,12 +5,17 @@
   "main": "dist/app.js",
   "scripts": {
     "dev": "tsnd --respawn --clear src/app.ts",
-    "build": "rimraf ./dist && tsc -p tsconfig.build.json",
+    "build": "rimraf ./dist && tsc -p tsconfig.build.json && npm run copy-yml",
+    "copy-yml": "copyfiles -u 1 src/**/*.yml dist/",
     "start": "npm run build && node dist/app.js",
-    "dc:dev": "docker-compose up",
-    "test": "jest",
-    "test:watch": "jest --watchAll --coverage",
-    "test:coverage": "jest --coverage"
+    "dc:dev": "docker-compose up --build",
+    "prisma:g:dev": "prisma generate --schema=prisma/schema.prisma",
+    "prisma:m:dev": "prisma migrate dev --schema=prisma/schema.prisma",
+    "prisma:m:test": "dotenv -e .env.test -- npx prisma migrate deploy",
+    "prisma:r:test": "dotenv -e .env.test -- prisma migrate reset",
+    "test": "npm run prisma:r:test && npm run prisma:m:test && jest",
+    "test:watch": "npm run prisma:r:test && npm run prisma:m:test && jest --watchAll --coverage",
+    "test:coverage": "npm run prisma:r:test && npm run prisma:m:test && jest --coverage"
   },
   "keywords": [
     "leovegas",
@@ -21,13 +26,20 @@
   "author": "Matias",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.14.10",
     "@types/supertest": "^6.0.2",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.6",
+    "@types/yamljs": "^0.2.34",
+    "copyfiles": "^2.4.1",
+    "dotenv-cli": "^7.4.2",
     "jest": "^29.7.0",
+    "prisma": "^5.17.0",
     "rimraf": "^6.0.1",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.2",
@@ -35,10 +47,16 @@
     "typescript": "^5.5.3"
   },
   "dependencies": {
+    "@prisma/client": "^5.17.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "env-var": "^7.5.0",
     "express": "^4.19.2",
+    "express-validator": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   }
 }

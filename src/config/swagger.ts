@@ -1,7 +1,18 @@
-
+import path from 'path';
+import YAML from 'yamljs';
 import { RequestHandler } from 'express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+
+const authDefinition = YAML.load(path.join(__dirname, '../presentation/auth/definitions.yml'));
+const usersDefinition = YAML.load(path.join(__dirname, '../presentation/users/definitions.yml'));
+const adminDefinition = YAML.load(path.join(__dirname, '../presentation/admin/definitions.yml'));
+
+const combinedSchemas = {
+    ...authDefinition.components.schemas,
+    ...usersDefinition.components.schemas,
+    ...adminDefinition.components.schemas,
+};
 
 export class Swagger {
 
@@ -18,7 +29,17 @@ export class Swagger {
                         surname: 'Suez',
                         email: 'matisuez@gmail.com',
                     },
-                    servers: [`http://localhost:${ port }`],
+                    servers: [`http://localhost:${ port }/api`],
+                },
+                components: {
+                    securitySchemes: {
+                        bearerAuth: {
+                            type: 'http',
+                            scheme: 'bearer',
+                            bearerFormat: 'JWT',
+                        },
+                    },
+                    schemas: combinedSchemas,
                 },
             },
             apis: ['**/*.ts'],

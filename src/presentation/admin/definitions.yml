@@ -1,0 +1,94 @@
+
+components:
+  schemas:
+    AdminUpdateUserBody:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The user's name
+          example: John Doe
+        email:
+          type: string
+          description: The user's email
+          example: johndoe@example.com
+        role:
+          type: string
+          enum: [ ADMIN, USER ]
+          example: USER
+        password:
+          type: string
+          description: The user's password
+          example: password123
+        repeatedPassword:
+          type: string
+          description: The user's password repeated for confirmation
+          example: password123
+
+    AdminUpdateUserSuccessResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1210
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: john@example.com
+        role:
+          type: string
+          enum: [ ADMIN, USER ]
+          example: USER
+        accessToken:
+          type: string
+          example: eyJhbGciOi...A5Mjh9.1
+
+    AdminGetAllUsersSuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: All users, total 10 
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                example: 1
+              name:
+                type: string
+                example: John Doe
+              email:
+                type: string
+                example: user1@gmail.com
+              accessToken:
+                type: string
+                example: eyJhbGciOiJ...nR5cCI6IkpXVCJ9
+
+    AdminDeleteUserSuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: User deleted
+        email:
+          type: string
+          example: user1@gmail.com
+        role:
+          type: string
+          enum: [ ADMIN, USER ]
+          example: USER
+
+    AdminErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Invalid email or password
+        status:
+          type: string
+          example: Error

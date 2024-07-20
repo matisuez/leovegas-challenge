@@ -6,7 +6,8 @@ describe('Environments Variables', () => {
         expect( envs ).toEqual({
             PORT: 3001,
             NODE_ENV: 'test',
-            PUBLIC_FOLDER: 'public'
+            JWT_SECRET: 'secret-test',
+            PUBLIC_FOLDER: 'public',
         });
     });
     test('Should return error if not found env', async() => {

@@ -1,0 +1,65 @@
+components:
+  schemas:
+    ## Register definitions
+    RegisterBody:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The user's name
+          example: John Doe
+        email:
+          type: string
+          description: The user's email
+          example: johndoe@example.com
+        password:
+          type: string
+          description: The user's password
+          example: password123
+        repeatedPassword:
+          type: string
+          description: The user's password repeated for confirmation
+          example: password123
+
+    RegisterSuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: User registered successfully
+        accessToken:
+          type: string
+          example: eyJhbGciOi...bzVO4stzLhHY
+
+    ## Login definitions
+    LoginBody:
+      type: object
+      properties:
+        email:
+          type: string
+          description: The user's email
+          example: user1@example.com
+        password:
+          type: string
+          description: The user's password
+          example: userPassword1
+
+    LoginSuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: User registered successfully
+        accessToken:
+          type: string
+          example: eyJhbGciOi...bzVO4stzLhHY
+
+    AuthErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Invalid email or password
+        status:
+          type: string
+          example: Error

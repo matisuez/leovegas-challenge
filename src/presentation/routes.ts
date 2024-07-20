@@ -9,6 +9,8 @@ import { AuthRoutes } from './auth/routes';
 import { UsersRoutes } from './users/routes';
 import { AdminRoutes } from './admin/routes';
 
+import { SeedsRoutes } from './seeds/routes';
+
 export class AppRoutes {
 
     static get routes():Router {
@@ -44,6 +46,8 @@ export class AppRoutes {
                 status: `Success`,
             });
         });
+
+        router.use('/seeds', SeedsRoutes.routes);
 
         router.use('/auth', AuthRoutes.routes);
 

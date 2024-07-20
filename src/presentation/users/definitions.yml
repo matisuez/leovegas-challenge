@@ -1,0 +1,69 @@
+
+components:
+  schemas:
+    GetMyInfoSuccessResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1210
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: john@example.com
+        role:
+          type: string
+          enum: [ ADMIN, USER ]
+          example: USER
+
+    UpdateUserInfoBody:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The user's name
+          example: John Doe
+        email:
+          type: string
+          description: The user's email
+          example: johndoe@example.com
+        password:
+          type: string
+          description: The user's password
+          example: password123
+        repeatedPassword:
+          type: string
+          description: The user's password repeated for confirmation
+          example: password123
+
+    UserInfoUpdatedSuccessResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1210
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: john@example.com
+        role:
+          type: string
+          enum: [ ADMIN, USER ]
+          example: USER
+        accessToken:
+          type: string
+          example: eyJhbGciOi...A5Mjh9.1
+
+    UserErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Invalid email or password
+        status:
+          type: string
+          example: Error

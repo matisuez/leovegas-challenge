@@ -1,14 +1,11 @@
-
-
 import path from 'path';
-import {
-    Server as HttpServer,
-} from 'http';
+import { Server as HttpServer, } from 'http';
 
-import express, {
-    Router,
-} from 'express';
+import cors from 'cors';
+import express, { Router, } from 'express';
+
 import { Swagger } from '../config/swagger';
+import { errorHandler } from './middlewares';
 
 interface Options {
     env:string;
@@ -43,6 +40,7 @@ export class Server {
     async start() {
 
         //* Middlewares
+        this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({
             extended: true,
@@ -55,28 +53,31 @@ export class Server {
         this.app.use('/api', this.routes);
 
         //* Catch 
-        this.app.use((req, res) => {
+        this.app.use('*', (req, res) => {
             const notFoundPath = `/../../${this.publicFolder}/notFound.html`;
-            const file = path.join(__dirname+notFoundPath);
+            const file = path.join( __dirname + notFoundPath );
             res.status(404).sendFile(file);
         });
 
-        //* Listener message
-        this.serverListener = this.listen(() => {
-            console.log(`Server running on port ${this.port}`);
-        });
+        //* Error handler
+        this.app.use(errorHandler);
 
+        //* Listener message
+        this.startListening();
+    }
+
+    private startListening() {
+        if (this.env !== 'test') {
+            this.serverListener = this.app.listen(this.port, () => {
+                console.log(`Server running on port: ${this.port}`);
+            });
+        } else {
+            this.serverListener = this.app.listen();
+        }
     }
 
     public close() {
         this.serverListener?.close();
-    }
-
-    private listen(callback:() => void) {
-        return this.env !== 'test' ?
-            this.app.listen(this.port, callback)
-            :
-            this.app.listen(callback);
     }
 
 }
