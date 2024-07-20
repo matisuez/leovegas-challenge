@@ -1,11 +1,8 @@
-
 name: CI
 
 on:
   push:
     branches: [main, dev]
-  # pull_request:
-  #   branches: [main, dev]
 
 jobs:
   build:
@@ -13,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x] # Puedes ajustar las versiones de Node.js que quieras probar
+        node-version: [18.x]
 
     steps:
     - name: Checkout repository
@@ -24,8 +21,22 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Cache Node.js modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
     - name: Install dependencies
       run: npm install
+
+    - name: Verify file structure
+      run: ls -R src/
+
+    - name: Verify TypeScript configuration
+      run: cat tsconfig.build.json
 
     - name: Build the project
       run: npm run build
