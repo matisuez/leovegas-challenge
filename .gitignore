@@ -2,5 +2,7 @@
 .env
 dist/
 coverage/
-postgres/
 node_modules/
+
+/postgres/
+!/src/data/postgres/
