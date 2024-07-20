@@ -12,7 +12,7 @@
     "prisma:g:dev": "prisma generate --schema=prisma/schema.prisma",
     "prisma:m:dev": "prisma migrate dev --schema=prisma/schema.prisma",
     "prisma:m:test": "dotenv -e .env.test -- npx prisma migrate deploy",
-    "prisma:r:test": "dotenv -e .env.test -- prisma migrate reset",
+    "prisma:r:test": "dotenv -e .env.test -- prisma migrate reset --force",
     "test": "npm run prisma:r:test && npm run prisma:m:test && jest",
     "test:watch": "npm run prisma:r:test && npm run prisma:m:test && jest --watchAll --coverage",
     "test:coverage": "npm run prisma:r:test && npm run prisma:m:test && jest --coverage"
